@@ -1,11 +1,40 @@
+import 'package:dio/dio.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
+import 'package:untitled2/song/popularity.dart';
+import 'package:untitled2/song/recent.dart';
+import 'package:untitled2/song/recommend.dart';
+import 'package:untitled2/bottombar/locker.dart';
+import 'package:untitled2/bottombar/setting.dart';
 import 'package:untitled2/login/login1.dart';
-import 'package:untitled2/main.dart';
 import 'package:untitled2/membership.dart';
+import 'package:untitled2/bottombar/search.dart';
 
-void main() {
+import 'firebase_options.dart';
+
+void main() async {
+  // kakao login
+  // 웹 환경에서 카카오 로그인을 정상적으로 완료하려면 runApp() 호출 전 아래 메서드 호출 필요
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // runApp() 호출 전 Flutter SDK 초기화
+  KakaoSdk.init(
+    nativeAppKey: '0fe127c1dcaa790f313189c8115bffab',
+    javaScriptAppKey: '0fe127c1dcaa790f313189c8115bffab',
+  );
+
+  KakaoSdk.init(nativeAppKey: '0fe127c1dcaa790f313189c8115bffab');
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
+
+
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -34,6 +63,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
   TabController? controller;
   int _selectedIndex = 0;
 
@@ -44,6 +74,23 @@ class _MyHomePageState extends State<MyHomePage> {
       _selectedIndex = index;
     });
   }
+
+
+  void test() async {
+    final Dio dio = Dio(
+      BaseOptions(
+        baseUrl: "https://192.168.0.10:9090",
+        contentType: "application/json",
+      ),
+    );
+    final res = await dio.get("/Book/test");
+
+    if(res.statusCode == 200) {
+      print(res.data);
+    }
+
+  }
+
 
 
   @override
@@ -57,9 +104,9 @@ class _MyHomePageState extends State<MyHomePage> {
             children: [
               Container(
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      margin: EdgeInsets.only(left: 20),
                       child: Text(
                         "Music",
                         style: TextStyle(
@@ -82,7 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => Login1(),
+                            builder: (context) => login1(),
                           )
                           );
                         },
@@ -126,7 +173,12 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => Recommend(),
+                        )
+                        );
+                      },
                     )
                   ],
                 ),
@@ -360,7 +412,12 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => Recent(),
+                        )
+                        );
+                      },
                     )
                   ],
                 ),
@@ -596,7 +653,12 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => Popularity(),
+                        )
+                        );
+                      },
                     )
                   ],
                 ),
@@ -861,6 +923,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
               ),
+              Container(
+                child: InkWell(
+                  onTap: () {
+                    test();
+                  },
+                    child: Text("button")
+                )
+              )
             ],
           ),
         ),
@@ -874,6 +944,12 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             InkWell(
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => MyApp(),
+                )
+                );
+              },
               child: Container(
                 width: 90,
                 height: 50,
@@ -882,9 +958,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   size: 30,
                 ),
               ),
-              onTap: () {
 
-              },
             ),
             InkWell(
               child: Container(
@@ -894,7 +968,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     Icons.search_rounded,
                     size: 30,
                   )),
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => Search(),
+                )
+                );
+              },
             ),
             InkWell(
               child: Container(
@@ -904,7 +983,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   width: 50,
                 ),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => Locker(),
+                )
+                );
+              },
             ),
             InkWell(
               child: Container(
@@ -914,7 +998,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   width: 50,
                 ),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => Setting(),
+                )
+                );
+              },
             ),
           ],
         ),
