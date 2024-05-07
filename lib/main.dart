@@ -10,8 +10,10 @@ import 'package:untitled2/bottombar/setting.dart';
 import 'package:untitled2/login/login1.dart';
 import 'package:untitled2/membership.dart';
 import 'package:untitled2/bottombar/search.dart';
-
 import 'firebase_options.dart';
+
+
+
 
 void main() async {
   // kakao login
