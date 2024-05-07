@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
+import 'package:untitled2/login/findid.dart';
+import 'package:untitled2/login/findpwd.dart';
 import 'package:untitled2/main.dart';
 import 'package:untitled2/membership.dart';
 import 'package:untitled2/membership1.dart';
@@ -9,11 +12,31 @@ import 'package:untitled2/bottombar/setting.dart';
 import 'package:untitled2/bottombar/search.dart';
 
 
-class login1 extends StatelessWidget {
+class login1 extends StatefulWidget {
   login1({super.key});
 
-  final idController = TextEditingController();   // 한번만 사용 Text컨트롤러
-  final pwController = TextEditingController();
+  @override
+  State<login1> createState() => _login1State();
+}
+
+class _login1State extends State<login1> {
+  TextEditingController _id = TextEditingController();
+  TextEditingController _pw = TextEditingController();
+
+@override
+void initState(){
+  super.initState();
+  TextEditingController _id = TextEditingController(text: ""); // 한번만 사용 Text컨트롤러
+  TextEditingController _pw = TextEditingController(text: "");
+}
+
+  @override
+  void dispose(){
+    _id.dispose();
+    _pw.dispose();
+    super.dispose();
+
+  }
 
   void signInWithKakao() async {
     try {
@@ -22,7 +45,6 @@ class login1 extends StatelessWidget {
       OAuthToken token = isInstalled
           ? await UserApi.instance.loginWithKakaoTalk()
           : await UserApi.instance.loginWithKakaoAccount();
-
     } catch (error) {
       print('카카오톡으로 로그인 실패 $error');
     }
@@ -31,7 +53,7 @@ class login1 extends StatelessWidget {
 
   bool login(String id, String pw) {
     bool result = false;
-    if (id.length < 5) {      // id의 문자열 길이가 5보다 짧으면
+    if (id.length < 5) { // id의 문자열 길이가 5보다 짧으면
       return result;
     }
     if (pw.length < 5 || pw.contains(RegExp(r'[!@#$%^&*(),.?:{}|<>]'))) {
@@ -84,7 +106,7 @@ class login1 extends StatelessWidget {
               child: Text(
                 "로그인",
                 style: TextStyle(
-                    fontSize: 32,
+                    fontSize: 30,
                     fontWeight: FontWeight.bold,
                     color: Color(0xff0085FF)),
               ),
@@ -114,7 +136,7 @@ class login1 extends StatelessWidget {
                           child: Text(
                             "카카오톡으로 시작하기",
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 16,
                             ),
                           ),
                         ),
@@ -126,46 +148,8 @@ class login1 extends StatelessWidget {
                     ),
                   ),
                   onTap: () {
-                    kakaoLogin();
+                    signInWithKakao();
                   },
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: Center(
-                child: InkWell(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.black,
-                    ),
-                    width: 300,
-                    height: 50,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Container(
-                          child: Image.asset(
-                            "assets/Apple.png",
-                            width: 40,
-                            height: 40,
-                          ),
-                        ),
-                        Container(
-                          child: Text(
-                            "Apple로 시작하기",
-                            style: TextStyle(fontSize: 18, color: Colors.white),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 10,
-                          height: 10,
-                        ),
-                      ],
-                    ),
-                  ),
-                  onTap: () {},
                 ),
               ),
             ),
@@ -175,7 +159,7 @@ class login1 extends StatelessWidget {
               child: TextField(
                 decoration: InputDecoration(labelText: 'email'),
                 keyboardType: TextInputType.emailAddress,
-                controller: idController, // controller 컨트롤러 변수
+                controller: _id, // controller 컨트롤러 변수
               ),
             ),
             Container(
@@ -186,7 +170,7 @@ class login1 extends StatelessWidget {
                   labelText: 'Password',
                 ),
                 keyboardType: TextInputType.emailAddress,
-                controller: pwController,
+                controller: _pw,
                 obscureText: true,
               ),
             ),
@@ -197,7 +181,7 @@ class login1 extends StatelessWidget {
               ),
               margin: EdgeInsets.only(top: 20),
               width: 300,
-              height: 50,
+              height: 45,
               child: InkWell(
                 child: Center(
                   child: Text(
@@ -206,56 +190,57 @@ class login1 extends StatelessWidget {
                   ),
                 ),
                 onTap: () {
-                  String id = idController.text;
-                  String pw = pwController.text;
+                  String id = _id.text;
+                  String pw = _pw.text;
                   bool result = login(id, pw);
                   if (result) {
                     Navigator.of(context).pop();
                   } else {
                     showDialog(
                       context: context,
-                      builder: (context) => Dialog(
-                        backgroundColor: Color(0xffDEE2E6),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Container(
-                              height: 150,
-                                child: Center(
-                                  child: Text("아이디 및 비밀번호를 확인해주세요.",
-                                  style: TextStyle(
-                                    fontSize: 19,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                      builder: (context) =>
+                          Dialog(
+                            backgroundColor: Color(0xffDEE2E6),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Container(
+                                  height: 150,
+                                  child: Center(
+                                    child: Text("아이디 및 비밀번호를 확인해주세요.",
+                                      style: TextStyle(
+                                        fontSize: 19,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                   ),
                                 ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: Container(
-                                    width: 40,
-                                    height: 30,
-                                    margin: EdgeInsets.only(right: 20, bottom: 20),
-                                    child: Text("확인",
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                        color: const Color(0xff0085FF),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Container(
+                                        width: 40,
+                                        height: 30,
+                                        margin: EdgeInsets.only(
+                                            right: 20, bottom: 20),
+                                        child: Text("확인",
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                            color: const Color(0xff0085FF),
+                                          ),
+                                        ),
+                                      ),
                                     ),
-                                    ),
-                                  ),
+                                  ],
                                 ),
                               ],
                             ),
-                          ],
-                        ),
-
-                      ),
+                          ),
                     );
                   }
                 },
@@ -270,12 +255,12 @@ class login1 extends StatelessWidget {
                     child: Text(
                       "회원가입",
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 15,
                       ),
                     ),
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => Membership1(),
+                        builder: (context) => Membership1(),
                       ));
                     },
                   ),
@@ -284,12 +269,31 @@ class login1 extends StatelessWidget {
                   margin: EdgeInsets.only(top: 10),
                   child: InkWell(
                     child: Text(
-                      "아이디 비밀번호 찾기",
+                      "아이디 찾기",
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 15,
                       ),
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => FindId(),
+                      ));
+                    },
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 10),
+                  child: InkWell(
+                    child: Text(
+                      " 비밀번호 찾기",
+                      style: TextStyle(
+                        fontSize: 15,
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => FindPwd()
+                      ));
+                    },
                   ),
                 ),
               ],
