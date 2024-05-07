@@ -1,36 +1,149 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:untitled2/main.dart';
 import 'package:untitled2/bottombar/locker.dart';
 import 'package:untitled2/bottombar/search.dart';
 import 'package:untitled2/bottombar/setting.dart';
 
-class Membership1 extends StatelessWidget {
+class Membership1 extends StatefulWidget {
   Membership1({super.key});
 
-  final idController = TextEditingController();
-  final pwController = TextEditingController();
-  final brithController = TextEditingController();
-  final telController = TextEditingController();
+  @override
+  State<Membership1> createState() => _Membership1State();
+}
 
-  void join(String id, String pw, String brith, String tel) {
+class _Membership1State extends State<Membership1> {
+  TextStyle style = TextStyle(
+    fontFamily: 'Montserrat',
+    fontSize: 20.0);
 
-    // 유효성 체크
-    final db = FirebaseFirestore.instance;
+  TextEditingController _email = TextEditingController();
+  TextEditingController _pw = TextEditingController();
+  TextEditingController _pw2 = TextEditingController();
+  TextEditingController _name = TextEditingController();
+  TextEditingController _id = TextEditingController();
 
+  @override
+  void initState(){
+    super.initState();
+    _id = TextEditingController(text: "");
+    _pw = TextEditingController(text: "");
+    _pw2 = TextEditingController(text: "");
+    _email = TextEditingController(text: "");
+    _name = TextEditingController(text: "");
 
-    final user = {
-      "id": id,
-      "pw": pw,
-      "brith": brith,
-      "tel": tel,
-    };
-    db.collection("member").add(user);
   }
 
+  @override
+  void dispose(){
+    _id.dispose();
+    _pw.dispose();
+    _pw2.dispose();
+    _email.dispose();
+    _name.dispose();
+    super.dispose();
+  }
 
+  void join(){
+    String joinId = _id.text;
+    String joinPw = _pw.text;
+    String joinPw2 = _pw2.text;
+    String joinbr = _email.text;
+    String jointel = _name.text;
 
+    if(joinId.length >= 13){
+      showDialog(context: context, barrierDismissible: false,
+      builder: (BuildContext ctx) {
+        return AlertDialog(
+          content: Text("ID는 12자리이하 까지만 가능합니다."),
+          actions: [
+            InkWell(
+              onTap: (){
+                Navigator.of(context).pop();
+              },
+              child: Text('확인'),
+            )
+          ],
+        );
+      });
+      return;
+    } if (joinPw.length >= 13) {
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext ctx) {
+            return AlertDialog(
+              content: Text(" 패스워드는 12자리이하 까지만 가능합니다. "),
+              actions: [
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('확인'),
+                ),
+              ],
+            );
+          });
+      return;
+    }
+    if (joinPw2.length >= 13) {
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext ctx) {
+            return AlertDialog(
+              content: Text(" 패스워드는 12자리이하 까지만 가능합니다. "),
+              actions: [
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('확인'),
+                ),
+              ],
+            );
+          });
+      return;
+    }
+    if (joinbr.length >= 13) {
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext ctx) {
+            return AlertDialog(
+              content: Text(" 패스워드는 12자리이하 까지만 가능합니다. "),
+              actions: [
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('확인'),
+                ),
+              ],
+            );
+          });
+      return;}
+    if (jointel.length >= 13) {
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext ctx) {
+            return AlertDialog(
+              content: Text(" 전화번호는 12자리이하 까지만 가능합니다. "),
+              actions: [
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('확인'),
+                ),
+              ],
+            );
+          });
+      return;}
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +159,7 @@ class Membership1 extends StatelessWidget {
                 Container(
                   margin: EdgeInsets.only(left: 20, top: 10),
                   child: InkWell(
-                    child: Icon(Icons.arrow_back_ios_new),
+                    child: Icon(Icons.arrow_back),
                     onTap: () {
                       Navigator.of(context).pop(); // 현재 페이지의 상태값 context
                     },
@@ -59,7 +172,7 @@ class Membership1 extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(top: 30),
                 child: Center(
-                  child: Text("회원가입",
+                  child: Text("계정 만들기",
                     style: TextStyle(
                         fontSize: 32,
                         fontWeight: FontWeight.bold,
@@ -70,72 +183,85 @@ class Membership1 extends StatelessWidget {
               ),
             ),
 
-            Container(
-              margin: EdgeInsets.only(left: 30, top: 20, right: 30),
-              child: TextField(
-                decoration: InputDecoration(labelText: "아이디(이메일)"),
-                controller: idController,
-              ),
-            ),
-
-            Container(
-              margin: EdgeInsets.only(left: 30,top: 20, right: 30),
-              child: TextField(
-                decoration: InputDecoration(labelText: "비밀번호"),
-                controller: pwController,
-              ),
-            ),
-
-            Container(
-              margin: EdgeInsets.only(left: 30,top: 20, right: 30),
-              child: TextField(
-                decoration: InputDecoration(labelText: "비밀번호 확인"),
-              ),
-            ),
-
-            Container(
-              margin: EdgeInsets.only(left: 30,top: 20, right: 30),
-              child: TextField(
-                decoration: InputDecoration(labelText: "생년월일(ex:900726)"),
-                controller: brithController,
-              ),
-            ),
-
-            Container(
-              width: 200,
-              margin: EdgeInsets.only(left: 30,top: 20, right: 30),
-              child: TextField(
-                decoration: InputDecoration(labelText: "전화번호"),
-                controller: telController,
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: TextFormField(
+                controller: _id,
+                validator: (value) => (value!.isEmpty) ? "아이디를 입력해 주세요" : null,
+                style: TextStyle(),
+                decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.key),
+                    labelText: "아이디",
+                    border: OutlineInputBorder()),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 30, top: 40, right: 30),
-              child: Container(
-                child: InkWell(
-                  onTap: () {
-                    String id = idController.text;
-                    String pw = pwController.text;
-                    String brith = brithController.text;
-                    String tel = telController.text;
-                    join(id,pw,brith,tel);
+              padding: const EdgeInsets.all(10.0),
+              child: TextFormField(
+                controller: _pw,
+                validator: (value) => (value!.isEmpty) ? "비밀번호를 입력해 주세요" : null,
+                style: TextStyle(),
+                decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.lock),
+                    labelText: "비밀번호",
+                    border: OutlineInputBorder()),
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: TextFormField(
+                controller: _pw2,
+                validator: (value) => (value!.isEmpty) ? "비밀번호를 확인 해주세요" : null,
+                style: TextStyle(),
+                decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.lock),
+                    labelText: "비밀번호 확인 ",
+                    border: OutlineInputBorder()),
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: TextFormField(
+                controller: _email,
+                validator: (value) => (value!.isEmpty) ? "이메일를 입력해 주세요" : null,
+                style: TextStyle(),
+                decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.markunread_rounded),
+                    labelText: "이메일 ",
+                    border: OutlineInputBorder()),
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: TextFormField(
+                controller: _name,
+                validator: (value) => (value!.isEmpty) ? "이름을 입력해 주세요" : null,
+                style: TextStyle(),
+                decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.person),
+                    labelText: "이름 ",
+                    border: OutlineInputBorder()),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Material(
+                elevation: 5.0,
+                borderRadius: BorderRadius.circular(30.0),
+                color: const Color(0xff0085FF),
+                child: MaterialButton(
+                  onPressed: () {
+                    join();
                   },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: const Color(0xff0085FF),
+                  child: Text(
+                    "계정 만들기",
+                    style: style.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
                     ),
-                    child: Center(
-                        child: Text("회 원 가 입",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white
-                        ),
-                        ),
-                    ),
-                    width: 80,
-                    height: 50,
                   ),
                 ),
               ),
