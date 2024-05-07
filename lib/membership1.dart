@@ -46,12 +46,19 @@ class _Membership1State extends State<Membership1> {
     super.dispose();
   }
 
+  bool isValidEmail(String email) {
+    // 이메일 주소의 정규식
+    final RegExp emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    return emailRegex.hasMatch(email);
+  }
   void join(){
     String joinId = _id.text;
     String joinPw = _pw.text;
     String joinPw2 = _pw2.text;
-    String joinbr = _email.text;
-    String jointel = _name.text;
+    String joinEmail = _email.text;
+    String joinName = _name.text;
+
+
 
     if(joinId.length >= 13){
       showDialog(context: context, barrierDismissible: false,
@@ -107,13 +114,33 @@ class _Membership1State extends State<Membership1> {
           });
       return;
     }
-    if (joinbr.length >= 13) {
+    if(!isValidEmail(joinEmail)){
+      showDialog(context: context,
+          barrierDismissible: false,
+          builder: (BuildContext ctx){
+            return AlertDialog(
+              content: Text("유효하지 않은 이메일 주소입니다."),
+              actions: [
+                InkWell(
+                  onTap: (){Navigator.of(context).pop();
+                  },
+                  child: Text('확인'),
+                )
+              ],
+            );
+          }
+          );
+
+    }
+
+
+    if (joinName.length >= 7) {
       showDialog(
           context: context,
           barrierDismissible: false,
           builder: (BuildContext ctx) {
             return AlertDialog(
-              content: Text(" 패스워드는 12자리이하 까지만 가능합니다. "),
+              content: Text(" 이름은 6자리이하 까지만 가능합니다. "),
               actions: [
                 InkWell(
                   onTap: () {
@@ -125,24 +152,15 @@ class _Membership1State extends State<Membership1> {
             );
           });
       return;}
-    if (jointel.length >= 13) {
-      showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext ctx) {
-            return AlertDialog(
-              content: Text(" 전화번호는 12자리이하 까지만 가능합니다. "),
-              actions: [
-                InkWell(
-                  onTap: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('확인'),
-                ),
-              ],
-            );
-          });
-      return;}
+  }
+
+  void check() {
+    String email = "example@example.com"; // 여기에 확인할 이메일 주소를 넣으세요
+    if (isValidEmail(email)) {
+      print("$email은(는) 유효한 이메일 주소입니다.");
+    } else {
+      print("$email은(는) 유효하지 않은 이메일 주소입니다.");
+    }
   }
 
   @override
