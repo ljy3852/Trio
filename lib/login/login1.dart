@@ -1,6 +1,7 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:convert';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:http/http.dart' as http;
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:untitled2/login/findid.dart';
 import 'package:untitled2/login/findpwd.dart';
@@ -10,6 +11,7 @@ import 'package:untitled2/membership1.dart';
 import 'package:untitled2/bottombar/locker.dart';
 import 'package:untitled2/bottombar/setting.dart';
 import 'package:untitled2/bottombar/search.dart';
+
 
 
 class login1 extends StatefulWidget {
@@ -30,13 +32,34 @@ void initState(){
   TextEditingController _pw = TextEditingController(text: "");
 }
 
-  @override
-  void dispose(){
-    _id.dispose();
-    _pw.dispose();
-    super.dispose();
+  void user(String id, String pw) async {
+    final Dio dio = Dio(
+        BaseOptions(
+          baseUrl: "http://192.168.0.177:9090",
+          contentType: "application/json",
+      ),
+    );
 
+    try {
+      Response res = await dio.get(
+        "/user/login",
+        data: {
+          "id": id,
+          "pw": pw,
+        },
+      );
+
+      if (res.statusCode == 200) {
+        print(res.data);
+        // 여기에 로그인 성공 시 처리할 코드 작성
+      } else {
+        print("Login failed"); // 로그인 실패 시 처리할 코드
+      }
+    } catch (e) {
+      print("Error: $e");
+    }
   }
+
 
   void signInWithKakao() async {
     try {
@@ -56,7 +79,7 @@ void initState(){
     if (id.length < 5) { // id의 문자열 길이가 5보다 짧으면
       return result;
     }
-    if (pw.length < 5 || pw.contains(RegExp(r'[!@#$%^&*(),.?:{}|<>]'))) {
+    if (pw.length < 3 || pw.contains(RegExp(r'[!@#$%^&*(),.?:{}|<>]'))) {
       return result;
     }
 
@@ -192,6 +215,7 @@ void initState(){
                 onTap: () {
                   String id = _id.text;
                   String pw = _pw.text;
+                  user(id, pw);
                   bool result = login(id, pw);
                   if (result) {
                     Navigator.of(context).pop();
@@ -355,6 +379,7 @@ void initState(){
                 )
                 );
               },
+
             ),
             InkWell(
               child: Container(

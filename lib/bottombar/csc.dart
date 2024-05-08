@@ -58,7 +58,7 @@ class _CustomerServiceFormState extends State<CustomerServiceForm> {
                 labelText: '작성자',
               ),
             ),
-            SizedBox(height: 16.0),
+            SizedBox(height: 20.0),
             TextFormField(
               controller: _contextController,
               maxLines: 5,
@@ -67,43 +67,23 @@ class _CustomerServiceFormState extends State<CustomerServiceForm> {
                 alignLabelWithHint: true,
               ),
             ),
-            SizedBox(height: 16.0),
-            Text(
-              "이미지 첨부",
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 10),
-            Container(
-              height: 150,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Center(
-                child: Icon(
-                  Icons.camera_alt,
-                  size: 50,
+            
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+              child: ElevatedButton(
+                onPressed: () {
+                  // 글쓰기 버튼을 누르면 이곳에서 데이터를 처리하고 저장하는 로직을 추가하세요.
+                  _submitForm();
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xff0085FF),
                 ),
-              ),
-            ),
-            // 첨부 파일 기능을 추가하려면 이곳에 버튼 또는 기타 위젯을 추가하세요.
-            ElevatedButton(
-              onPressed: () {
-                // 글쓰기 버튼을 누르면 이곳에서 데이터를 처리하고 저장하는 로직을 추가하세요.
-                _submitForm();
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xff0085FF),
-              ),
-              child: Text('등록하기',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                child: Text('등록하기',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
