@@ -5,18 +5,22 @@ import 'package:untitled2/bottombar/locker.dart';
 import 'package:untitled2/bottombar/search.dart';
 import 'package:untitled2/bottombar/setting.dart';
 
+//Stateful 위젯 = 동적 화면 (Text 값 사용자에게 받아와야하기 때문)
+//위젯 클래스를 선언하고 StatefulWidget을 상속받는 Membership1 클래스를 만들기
 class Membership1 extends StatefulWidget {
   Membership1({super.key});
 
   @override
   State<Membership1> createState() => _Membership1State();
 }
-
+//Membership1 클래스의 상태를 관리하는 _Membership1State 클래스를 만들기
+//_Membership1State 클래스에서는 위젯의 레이아웃과 동작을 정의
 class _Membership1State extends State<Membership1> {
   TextStyle style = TextStyle(
       fontFamily: 'Montserrat',
       fontSize: 20.0);
 
+  //텍스트입력값 가져오기 = Controller
   TextEditingController email = TextEditingController();
   TextEditingController pw = TextEditingController();
   TextEditingController pw2 = TextEditingController();
@@ -24,7 +28,11 @@ class _Membership1State extends State<Membership1> {
   TextEditingController id = TextEditingController();
 
   @override
+  //initState 는 Flutter 위젯의 상태가 초기화될 때 호출되는 메소드
+  // 이 메소드는 StatefulWidget 클래스에서 오버라이드 하여 상태 초기화 로직을 구현할 수 있음
   void initState(){
+    //super.initState 코드는 현재 클래스에서 오버라이드 된
+    // initState() 메서드 내에서 상위 클래스의 initState() 메서드를 호출
     super.initState();
     id = TextEditingController(text: "");
     pw = TextEditingController(text: "");
@@ -32,7 +40,8 @@ class _Membership1State extends State<Membership1> {
     email = TextEditingController(text: "");
     name = TextEditingController(text: "");
   }
-
+//각 텍스트 필드의 입력값을 Controller를 사용하여 가져오고
+// dispose을 사용해서 메모리 누수를 방지
   @override
   void dispose(){
     id.dispose();
@@ -40,15 +49,16 @@ class _Membership1State extends State<Membership1> {
     pw2.dispose();
     email.dispose();
     name.dispose();
+    //super.dispose를 호출하여 부모 클래스의 dispose 메소드를 실행하여 추가적인 정리 작업을 수행
     super.dispose();
   }
-
+//회원가입을 위한 함수
   void joins(String id, String pw, String name, String email) async {
-    final dio = Dio();
+    final dio = Dio(); //HTTP 클라이언트 라이브러리 Dio의 인스턴스 생성
 
     try {
       final response = await dio.post(
-        "http://192.168.0.177:9090/user/join",
+        "http://192.168.0.177:9090/user/join", // 서버에 POST 요청 보냄
         data: {
           'id': id,
           'pw': pw,
@@ -57,7 +67,7 @@ class _Membership1State extends State<Membership1> {
         },
         options: Options(
           headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json', // 요청 헤더 설정
           },
         ),
       );
@@ -71,8 +81,8 @@ class _Membership1State extends State<Membership1> {
     }
   }
 
+  // 이메일 유효성 검사 함수
   bool isValidEmail(String email) {
-    // 이메일 주소의 정규식
     final RegExp emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
     return emailRegex.hasMatch(email);
   }
@@ -183,13 +193,14 @@ class _Membership1State extends State<Membership1> {
                         String joinPw2 = pw2.text;
                         String joinEmail = email.text;
                         String joinName = name.text;
-
-                        if (joinId.length > 12) {
+                        //!joinId.contains(RegExp(r'\d')): RegExp(r'\d')는 정규식으로 숫자를 나타내며, contains 함수를 사용하여 아이디에 숫자가 포함되어 있는지 확인
+                        // !는 부정 연산자, 아이디에 숫자가 포함되지 않은 경우를 의미.
+                        if (joinId.length > 12 || !joinId.contains(RegExp(r'\d'))) {
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
-                                content: Text("아이디는 12자리 이하로 입력하세요."),
+                                content: Text("아이디는 12자리 이하이고 숫자를 포함해야 합니다."),
                                 actions: [
                                   TextButton(
                                     onPressed: () {
@@ -204,12 +215,17 @@ class _Membership1State extends State<Membership1> {
                           return;
                         }
 
-                        if (joinPw.length > 12) {
+                        //(?=.*\d): 최소한 하나의 숫자를 포함
+                        // (?=.*[a-zA-Z]): 최소한 하나의 문자를 포함
+                        // .{5,12}: 총 길이가 5에서 12자 사이
+                        RegExp passwordRegex = RegExp(r'^(?=.*\d)(?=.*[a-zA-Z]).{5,12}$');
+
+                        if (joinPw.length > 12 || !passwordRegex.hasMatch(joinPw)) {
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
-                                content: Text("비밀번호는 12자리 이하로 입력하세요."),
+                                content: Text("비밀번호는 5자에서 12자 사이이며, 문자와 숫자를 모두 포함해야 합니다."),
                                 actions: [
                                   TextButton(
                                     onPressed: () {
@@ -223,6 +239,7 @@ class _Membership1State extends State<Membership1> {
                           );
                           return;
                         }
+
                         if (joinPw != joinPw2) {
                           showDialog(
                             context: context,
@@ -243,7 +260,7 @@ class _Membership1State extends State<Membership1> {
                           return;
                         }
                         if (joinEmail.isEmpty || !isValidEmail(joinEmail)) {
-                          showDialog(
+                          showDialog( //각종 알림과 에러 처리
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
