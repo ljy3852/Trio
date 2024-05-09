@@ -13,7 +13,6 @@ import 'package:untitled2/bottombar/setting.dart';
 import 'package:untitled2/bottombar/search.dart';
 
 
-
 class login1 extends StatefulWidget {
   login1({super.key});
 
@@ -41,7 +40,7 @@ void initState(){
     );
 
     try {
-      Response res = await dio.get(
+      Response res = await dio.post(
         "/user/login",
         data: {
           "id": id,
@@ -51,15 +50,15 @@ void initState(){
 
       if (res.statusCode == 200) {
         print(res.data);
-        // 여기에 로그인 성공 시 처리할 코드 작성
+
       } else {
-        print("Login failed"); // 로그인 실패 시 처리할 코드
+        print("Login failed");
+
       }
     } catch (e) {
       print("Error: $e");
     }
   }
-
 
   void signInWithKakao() async {
     try {
@@ -223,47 +222,17 @@ void initState(){
                     showDialog(
                       context: context,
                       builder: (context) =>
-                          Dialog(
+                          AlertDialog(
                             backgroundColor: Color(0xffDEE2E6),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Container(
-                                  height: 150,
-                                  child: Center(
-                                    child: Text("아이디 및 비밀번호를 확인해주세요.",
-                                      style: TextStyle(
-                                        fontSize: 19,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    InkWell(
-                                      onTap: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: Container(
-                                        width: 40,
-                                        height: 30,
-                                        margin: EdgeInsets.only(
-                                            right: 20, bottom: 20),
-                                        child: Text("확인",
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold,
-                                            color: const Color(0xff0085FF),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
+                            title: Text('로그인 실패'),
+                            content: Text("아이디 및 비밀번호를 확인해주세요"),
+                            actions: [
+                              TextButton(onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                                  child: Text("확인"),
+                              ),
+                            ],
                           ),
                     );
                   }

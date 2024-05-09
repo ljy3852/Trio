@@ -59,12 +59,8 @@ Future<void> kakaoLogout() async {
   }
 }
 
-
-
-
 class Membership extends StatelessWidget {
   const Membership({super.key});
-
 
   @override
   Widget build(BuildContext context) {
@@ -102,8 +98,6 @@ class Membership extends StatelessWidget {
                 ),
               ],
             ),
-
-
             Container(
               child: Padding(
                 padding: const EdgeInsets.only(top: 50),
@@ -118,7 +112,6 @@ class Membership extends StatelessWidget {
                 ),
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.only(top: 50),
               child: Center(
@@ -168,47 +161,6 @@ class Membership extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: Colors.black,
-                    ),
-                    width: 300,
-                    height: 50,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Container(
-                          child: Image.asset("assets/Apple.png",
-                            width: 40,
-                            height: 40,
-                          ),
-                        ),
-                        Container(
-                          child: Text("Apple로 시작하기",
-                            style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.white
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 10,
-                          height: 10,
-                        ),
-                      ],
-                    ),
-                  ),
-                  onTap: () {},
-                ),
-              ),
-            ),
-
-
-            Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: Center(
-                child: InkWell(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
                       color: const Color(0xff0085FF),
                     ),
                     width: 300,
@@ -243,7 +195,6 @@ class Membership extends StatelessWidget {
                       builder: (context) => Membership1(),
                     )
                     );
-
                   },
                 ),
               ),

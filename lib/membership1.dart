@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +8,7 @@ import 'package:untitled2/main.dart';
 import 'package:untitled2/bottombar/locker.dart';
 import 'package:untitled2/bottombar/search.dart';
 import 'package:untitled2/bottombar/setting.dart';
+import 'package:http/http.dart' as http;
 
 class Membership1 extends StatefulWidget {
   Membership1({super.key});
@@ -44,6 +47,31 @@ class _Membership1State extends State<Membership1> {
     email.dispose();
     name.dispose();
     super.dispose();
+  }
+
+  void joins(String id, String pw, String name, String email) async {
+    final url = Uri.parse("http://192.168.0.177:9090/user/join");
+
+    final response = await http.post(
+      url,
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode(<String, String>{
+        'id': id,
+        'pw': pw,
+        'name': name,
+        'email': email,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      // 회원가입 성공 시 수행할 작업
+      print("회원가입 성공!");
+    } else {
+      // 회원가입 실패 시 수행할 작업
+      print("회원가입 실패: ${response.body}");
+    }
   }
 
   bool isValidEmail(String email) {
@@ -272,7 +300,7 @@ class _Membership1State extends State<Membership1> {
                 color: const Color(0xff0085FF),
                 child: MaterialButton(
                   onPressed: () {
-                    join();
+                    joins(id.text, pw.text, name.text, email.text);
                   },
                   child: Text(
                     "계정 만들기",
