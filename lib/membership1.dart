@@ -19,30 +19,30 @@ class _Membership1State extends State<Membership1> {
     fontFamily: 'Montserrat',
     fontSize: 20.0);
 
-  TextEditingController _email = TextEditingController();
-  TextEditingController _pw = TextEditingController();
-  TextEditingController _pw2 = TextEditingController();
-  TextEditingController _name = TextEditingController();
-  TextEditingController _id = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController pw = TextEditingController();
+  TextEditingController pw2 = TextEditingController();
+  TextEditingController name = TextEditingController();
+  TextEditingController id = TextEditingController();
 
   @override
   void initState(){
     super.initState();
-    _id = TextEditingController(text: "");
-    _pw = TextEditingController(text: "");
-    _pw2 = TextEditingController(text: "");
-    _email = TextEditingController(text: "");
-    _name = TextEditingController(text: "");
+    id = TextEditingController(text: "");
+    pw = TextEditingController(text: "");
+    pw2 = TextEditingController(text: "");
+    email = TextEditingController(text: "");
+    name = TextEditingController(text: "");
 
   }
 
   @override
   void dispose(){
-    _id.dispose();
-    _pw.dispose();
-    _pw2.dispose();
-    _email.dispose();
-    _name.dispose();
+    id.dispose();
+    pw.dispose();
+    pw2.dispose();
+    email.dispose();
+    name.dispose();
     super.dispose();
   }
 
@@ -52,11 +52,11 @@ class _Membership1State extends State<Membership1> {
     return emailRegex.hasMatch(email);
   }
   void join(){
-    String joinId = _id.text;
-    String joinPw = _pw.text;
-    String joinPw2 = _pw2.text;
-    String joinEmail = _email.text;
-    String joinName = _name.text;
+    String joinId = id.text;
+    String joinPw = pw.text;
+    String joinPw2 = pw2.text;
+    String joinEmail = email.text;
+    String joinName = name.text;
 
 
 
@@ -204,7 +204,7 @@ class _Membership1State extends State<Membership1> {
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: TextFormField(
-                controller: _id,
+                controller: id,
                 validator: (value) => (value!.isEmpty) ? "아이디를 입력해 주세요" : null,
                 style: TextStyle(),
                 decoration: InputDecoration(
@@ -216,7 +216,7 @@ class _Membership1State extends State<Membership1> {
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: TextFormField(
-                controller: _pw,
+                controller: pw,
                 validator: (value) => (value!.isEmpty) ? "비밀번호를 입력해 주세요" : null,
                 style: TextStyle(),
                 decoration: InputDecoration(
@@ -229,7 +229,7 @@ class _Membership1State extends State<Membership1> {
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: TextFormField(
-                controller: _pw2,
+                controller: pw2,
                 validator: (value) => (value!.isEmpty) ? "비밀번호를 확인 해주세요" : null,
                 style: TextStyle(),
                 decoration: InputDecoration(
@@ -242,7 +242,7 @@ class _Membership1State extends State<Membership1> {
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: TextFormField(
-                controller: _email,
+                controller: email,
                 validator: (value) => (value!.isEmpty) ? "이메일를 입력해 주세요" : null,
                 style: TextStyle(),
                 decoration: InputDecoration(
@@ -255,7 +255,7 @@ class _Membership1State extends State<Membership1> {
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: TextFormField(
-                controller: _name,
+                controller: name,
                 validator: (value) => (value!.isEmpty) ? "이름을 입력해 주세요" : null,
                 style: TextStyle(),
                 decoration: InputDecoration(
