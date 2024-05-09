@@ -75,10 +75,10 @@ void initState(){
 
   bool login(String id, String pw) {
     bool result = false;
-    if (id.length < 5) { // id의 문자열 길이가 5보다 짧으면
+    if (id.length > 13 ) {
       return result;
     }
-    if (pw.length < 3 || pw.contains(RegExp(r'[!@#$%^&*(),.?:{}|<>]'))) {
+    if (pw.length > 13 || pw.contains(RegExp(r'[!@#$%^&*(),.?:{}|<>]'))) {
       return result;
     }
 
@@ -179,7 +179,7 @@ void initState(){
               margin: EdgeInsets.only(top: 15),
               width: 300,
               child: TextField(
-                decoration: InputDecoration(labelText: 'email'),
+                decoration: InputDecoration(labelText: 'ID'),
                 keyboardType: TextInputType.emailAddress,
                 controller: _id, // controller 컨트롤러 변수
               ),
