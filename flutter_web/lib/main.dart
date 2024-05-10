@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_web/member/Membership1.dart';
+import 'package:flutter_web/member/login1.dart';
 
 void main() {
   runApp(const MyApp());
@@ -44,10 +46,10 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Column(
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Container(
-                        margin: EdgeInsets.only(right: 300, top: 20),
+                        margin: EdgeInsets.only(left: 50, top: 20),
                         child: Text(
                           "Music",
                           style: TextStyle(
@@ -59,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       Container(
                         width: 500,
                         height: 40,
-                        margin: EdgeInsets.only(top: 20, right: 150),
+                        margin: EdgeInsets.only(top: 20, left: 300),
                         child: SearchBar(
                             leading: Icon(Icons.search),
                             hintText: "검색어를 입력하세요",
@@ -69,14 +71,26 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       Container(
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 100, top: 20),
-                          child: InkWell(onTap: () {}, child: Text("로그인")),
+                          padding: const EdgeInsets.only(left: 190, top: 20),
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => login1(), // 로그인 페이지로 이동
+                              ));
+                            },
+                            child: Text("로그인"),
+                          ),
                         ),
                       ),
+
                       Container(
                         child: Padding(
                           padding: const EdgeInsets.only(left: 50, top: 20),
-                          child: InkWell(onTap: () {}, child: Text("회원가입")),
+                          child: InkWell(onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => Membership1(),
+                            ));
+                          }, child: Text("회원가입")),
                         ),
                       )
                     ],
