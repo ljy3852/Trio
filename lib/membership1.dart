@@ -214,7 +214,6 @@ class _Membership1State extends State<Membership1> {
                           );
                           return;
                         }
-
                         //(?=.*\d): 최소한 하나의 숫자를 포함
                         // (?=.*[a-zA-Z]): 최소한 하나의 문자를 포함
                         // .{5,12}: 총 길이가 5에서 12자 사이
