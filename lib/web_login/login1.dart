@@ -2,6 +2,11 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:untitled2/web_login/Membership1.dart';
+import '../login/findid.dart';
+import '../login/findpwd.dart';
+
+
 
 class login1 extends StatefulWidget {
   login1({super.key});
@@ -17,8 +22,7 @@ class _login1State extends State<login1> {
   @override
   void initState() {
     super.initState();
-    TextEditingController _id =
-        TextEditingController(text: ""); // 한번만 사용 Text컨트롤러
+    TextEditingController _id = TextEditingController(text: ""); // 한번만 사용 Text컨트롤러
     TextEditingController _pw = TextEditingController(text: "");
   }
 
@@ -73,13 +77,19 @@ class _login1State extends State<login1> {
           children: [
             Padding(
               padding: const EdgeInsets.only(left: 50, top: 20),
-              child: Container(
-                child: Text(
-                  "Music",
-                  style: TextStyle(
+              child: InkWell(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                child: Container(
+                  child: Text(
+                    "Music",
+                    style: TextStyle(
                       fontSize: 50,
                       fontWeight: FontWeight.bold,
-                      color: const Color(0xff0085FF)),
+                      color: const Color(0xff0085FF),
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -179,7 +189,7 @@ class _login1State extends State<login1> {
                   ),
                   onTap: () {
                     String id = _id.text;
-                    String pw = _id.text;
+                    String pw = _pw.text;
                     user(id, pw);
                     bool result = login(id, pw);
                     if (result) {
@@ -188,18 +198,18 @@ class _login1State extends State<login1> {
                       showDialog(
                           context: context,
                           builder: (context) => AlertDialog(
-                                backgroundColor: Color(0xffDEE2E6),
-                                title: Text("로그인 실패"),
-                                content: Text("아이디 및 비밀번호를 확인해주세요"),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: Text("확인"),
-                                  ),
-                                ],
-                              ));
+                            backgroundColor: Color(0xffDEE2E6),
+                            title: Text("로그인 실패"),
+                            content: Text("아이디 및 비밀번호를 확인해주세요"),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: Text("확인"),
+                              ),
+                            ],
+                          ));
                     }
                   },
                 ),
@@ -217,11 +227,11 @@ class _login1State extends State<login1> {
                         fontSize: 17,
                       ),
                     ),
-                    // onTap: () {
-                    //   Navigator.of(context).push(MaterialPageRoute(
-                    //     builder: (context) => Membership1(),
-                    //   ));
-                    // },
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => Membership1(),
+                      ));
+                    },
                   ),
                 ),
                 Container(
@@ -251,13 +261,13 @@ class _login1State extends State<login1> {
                         fontSize: 17,
                       ),
                     ),
-                    // onTap: () {
-                    //   Navigator.of(context).push(MaterialPageRoute(
-                    //     builder: (context) => FindPwd(),
-                    //   ));
-                    // },
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => FindPwd(),
+                      ));
+                    },
                   ),
-                )
+                ),
               ],
             )
           ],
