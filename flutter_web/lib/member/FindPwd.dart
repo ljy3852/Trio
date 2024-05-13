@@ -45,8 +45,8 @@ class FindPwd extends StatelessWidget {
                 // 비밀번호 찾기 버튼을 눌렀을 때 수행할 작업
               },
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Color(0xff0085FF)), // 버튼의 색상을 0xff0085FF로 설정
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.white), // 버튼의 글자 색상을 화이트로 설정
+                backgroundColor: MaterialStateProperty.all<Color>(Color(0xff0085FF)),
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
               ),
               child: Text('비밀번호 찾기'),
             ),
@@ -56,3 +56,4 @@ class FindPwd extends StatelessWidget {
     );
   }
 }
+

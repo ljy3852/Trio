@@ -1,9 +1,7 @@
-import 'dart:math';
+import 'dart:convert';
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_web/member/Membership1.dart';
-import 'package:flutter_web/member/login.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter_web/member/Membership1.dart';
 import 'package:flutter_web/member/FindId.dart';
 import 'package:flutter_web/member/FindPwd.dart';

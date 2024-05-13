@@ -24,16 +24,16 @@ class _Membership1State extends State<Membership1> {
   @override
   //initState 는 Flutter 위젯의 상태가 초기화될 때 호출되는 메소드
   // 이 메소드는 StatefulWidget 클래스에서 오버라이드 하여 상태 초기화 로직을 구현할 수 있음
-  void initState(){
+  // void initState(){
     //super.initState 코드는 현재 클래스에서 오버라이드 된
     // initState() 메서드 내에서 상위 클래스의 initState() 메서드를 호출
-    super.initState();
-    id = TextEditingController(text: "");
-    pw = TextEditingController(text: "");
-    pw2 = TextEditingController(text: "");
-    email = TextEditingController(text: "");
-    name = TextEditingController(text: "");
-  }
+    // super.initState();
+    // id = TextEditingController(text: "");
+    // pw = TextEditingController(text: "");
+    // pw2 = TextEditingController(text: "");
+    // email = TextEditingController(text: "");
+    // name = TextEditingController(text: "");
+  // }
 //각 텍스트 필드의 입력값을 Controller를 사용하여 가져오고
 // dispose을 사용해서 메모리 누수를 방지
   @override
