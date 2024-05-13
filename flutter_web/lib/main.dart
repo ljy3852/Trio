@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_web/songs_list/hot_list.dart';
 
 void main() {
   runApp(const MyApp());
@@ -117,7 +118,11 @@ class _MyHomePageState extends State<MyHomePage> {
                         padding: const EdgeInsets.only(top: 40, left: 400),
                         child: Container(
                           child: InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => hot_list(),
+                              ));
+                            },
                             child: Text(
                               "인기 곡 〉",
                               style: TextStyle(
