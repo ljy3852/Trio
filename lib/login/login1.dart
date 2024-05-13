@@ -3,14 +3,15 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
-import 'package:untitled2/login/findid.dart';
-import 'package:untitled2/login/findpwd.dart';
+import 'package:untitled2/web_login/findid.dart';
+import 'package:untitled2/web_login/findpwd.dart';
 import 'package:untitled2/main.dart';
 import 'package:untitled2/membership.dart';
-import 'package:untitled2/membership1.dart';
-import 'package:untitled2/bottombar/locker.dart';
-import 'package:untitled2/bottombar/setting.dart';
-import 'package:untitled2/bottombar/search.dart';
+import 'package:untitled2/web_login/membership1.dart';
+
+import '../bottombar/locker.dart';
+import '../bottombar/search.dart';
+import '../bottombar/setting.dart';
 
 
 class login1 extends StatefulWidget {

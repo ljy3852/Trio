@@ -74,6 +74,7 @@ flutter:
     - assets/m_recent/
     - assets/m_popularity/
     - assets/m_genre/
+    - assets/mainImages/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

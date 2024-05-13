@@ -1,15 +1,15 @@
+import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled2/web_login/Membership1.dart';
 import 'package:untitled2/web_login/login1.dart';
 
-
 void main() {
-  runApp(const MyApp());
+  runApp(const MyWeb());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyWeb extends StatelessWidget {
+  const MyWeb({super.key});
 
   // This widget is the root of your application.
   @override
@@ -703,8 +703,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ],
               ),
-            )
-        )
-    );
+            )));
   }
 }
