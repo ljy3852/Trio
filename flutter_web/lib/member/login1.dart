@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web/member/Membership1.dart';
 import 'package:flutter_web/member/login.dart';
 import 'package:flutter_web/member/Membership1.dart';
+import 'package:flutter_web/member/FindId.dart';
+import 'package:flutter_web/member/FindPwd.dart';
 
 
 class login1 extends StatefulWidget {
@@ -242,7 +244,11 @@ class _login1State extends State<login1> {
                         fontSize: 17,
                       ),
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => FindId(),
+                      ));
+                    },
                   ),
                 ),
                 Container(
@@ -254,7 +260,10 @@ class _login1State extends State<login1> {
                         fontSize: 17,
                       ),
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => FindPwd(),
+                      ));
+                    },
                   ),
                 )
               ],
