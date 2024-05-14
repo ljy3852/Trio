@@ -5,8 +5,8 @@ import 'package:http/http.dart' as http;
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:untitled2/web_login/findid.dart';
 import 'package:untitled2/web_login/findpwd.dart';
-import 'package:untitled2/main.dart';
-import 'package:untitled2/membership.dart';
+import 'package:untitled2/apppage/main.dart';
+import 'package:untitled2/apppage/membership.dart';
 import 'package:untitled2/web_login/membership1.dart';
 
 import '../bottombar/locker.dart';

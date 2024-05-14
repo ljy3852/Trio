@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:untitled2/main.dart';
+import 'package:untitled2/apppage/main.dart';
 import 'package:untitled2/bottombar/setting.dart';
 import 'package:untitled2/bottombar/search.dart';
 
