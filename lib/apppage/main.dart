@@ -109,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
     //dio에 url를 json형식을 담아주기 위해 만들어줌
     Dio dio = Dio(
       BaseOptions(
-        baseUrl: "http://192.168.45.63:9090",
+        baseUrl: "http://192.168.0.177:9090",
         contentType: "application/json",
       ),
     );
@@ -267,7 +267,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                         Container(
                                           width: 100,
                                           child: Text(
-                                            list[index].artist ?? "",
+                                            list[index].title ?? "",
                                             style: TextStyle(
                                                 fontSize: 10,
                                                 fontWeight: FontWeight.bold),
@@ -276,7 +276,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                         Container(
                                           margin: EdgeInsets.only(left: 1),
                                           child: Text(
-                                            list[index].title ?? "",
+                                            list[index].artist ?? "",
                                             style: TextStyle(
                                               fontSize: 9,
                                               color: Color(
@@ -361,7 +361,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                         Container(
                                           width: 100,
                                           child: Text(
-                                            list[index].artist ?? "",
+                                            list[index].title ?? "",
                                             style: TextStyle(
                                                 fontSize: 10,
                                                 fontWeight: FontWeight.bold),
@@ -370,7 +370,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                         Container(
                                           margin: EdgeInsets.only(left: 1),
                                           child: Text(
-                                            list[index].title ?? "",
+                                            list[index].artist ?? "",
                                             style: TextStyle(
                                               fontSize: 9,
                                               color: Color(
