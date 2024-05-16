@@ -77,26 +77,26 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  // void test() async {
-  //   final Dio dio = Dio(
-  //     BaseOptions(
-  //       baseUrl: "http://192.168.45.63:9090",
-  //       contentType: "application/json",
-  //     ),
-  //   );
-  //
-  //   try {
-  //     final res = await dio.get("/Book/test");
-  //
-  //     if (res.statusCode == 200) {
-  //       print(res.data);
-  //     } else {
-  //       print("Error: ${res.statusCode}");
-  //     }
-  //   } catch (e) {
-  //     print("Error occurred: $e");
-  //   }
-  // }
+  void test() async {
+    final Dio dio = Dio(
+      BaseOptions(
+        baseUrl: "http://192.168.45.63:9090",
+        contentType: "application/json",
+      ),
+    );
+
+    try {
+      final res = await dio.get("/Book/test");
+
+      if (res.statusCode == 200) {
+        print(res.data);
+      } else {
+        print("Error: ${res.statusCode}");
+      }
+    } catch (e) {
+      print("Error occurred: $e");
+    }
+  }
 
   @override
   void initState() {

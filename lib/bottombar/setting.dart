@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:untitled2/bottombar/account.dart';
 import 'package:untitled2/bottombar/board.dart';
 import 'package:untitled2/bottombar/locker.dart';
 import 'package:untitled2/apppage/main.dart';
@@ -33,12 +34,12 @@ class Setting extends StatelessWidget {
               leading: Icon(Icons.account_circle),
               title: Text('계정'),
               onTap: () {
-                // 계정 페이지로 이동하는 코드를 여기에 작성
+                Navigator.push(context, MaterialPageRoute(builder: (context) => AccountPage()),);
               },
             ),
             ListTile(
               leading: Icon(Icons.article),
-              title: Text('공지사항'),
+              title: Text('게시판'),
               onTap: () {
                 // 게시판 페이지로 이동하는 코드를 여기에 작성
                 Navigator.push(context, MaterialPageRoute(builder: (context) => Board()),);
@@ -46,7 +47,7 @@ class Setting extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(Icons.headset_mic_rounded),
-              title: Text('고객센터'),
+              title: Text('문의하기'),
               onTap: () {
                 // 고객센터 페이지로 이동하는 코드를 여기에 작성
                 Navigator.push(
@@ -68,9 +69,7 @@ class Setting extends StatelessWidget {
           children: [
             InkWell(
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => MyApp(),
-                ));
+                Navigator.pop(context);
               },
               child: Container(
                 width: 90,
